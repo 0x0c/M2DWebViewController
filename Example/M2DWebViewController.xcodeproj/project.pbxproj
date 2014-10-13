@@ -23,8 +23,11 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		D7327120609861F29FC56149 /* libPods-M2DWebViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64939D387F863473C21F1 /* libPods-M2DWebViewController.a */; };
+		E91E6B3319EC08EA00DBF994 /* M2DWebViewController_left.png in Resources */ = {isa = PBXBuildFile; fileRef = E91E6B2F19EC08EA00DBF994 /* M2DWebViewController_left.png */; };
+		E91E6B3419EC08EA00DBF994 /* M2DWebViewController_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91E6B3019EC08EA00DBF994 /* M2DWebViewController_left@2x.png */; };
+		E91E6B3519EC08EA00DBF994 /* M2DWebViewController_right.png in Resources */ = {isa = PBXBuildFile; fileRef = E91E6B3119EC08EA00DBF994 /* M2DWebViewController_right.png */; };
+		E91E6B3619EC08EA00DBF994 /* M2DWebViewController_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91E6B3219EC08EA00DBF994 /* M2DWebViewController_right@2x.png */; };
 		E99F030519EBFA6A00B76837 /* M2DWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F030019EBFA6A00B76837 /* M2DWebViewController.m */; };
-		E99F030719EBFA9800B76837 /* M2DWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E99F030619EBFA9800B76837 /* M2DWebViewController.bundle */; };
 		E99F030919EBFBF400B76837 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99F030819EBFBF400B76837 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,9 +70,12 @@
 		A6DF9A72B87EC25E994C0A12 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		AD52DAC5375462DB3670007B /* M2DWebViewController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = M2DWebViewController.podspec; path = ../M2DWebViewController.podspec; sourceTree = "<group>"; };
 		E6F64939D387F863473C21F1 /* libPods-M2DWebViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-M2DWebViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91E6B2F19EC08EA00DBF994 /* M2DWebViewController_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M2DWebViewController_left.png; sourceTree = "<group>"; };
+		E91E6B3019EC08EA00DBF994 /* M2DWebViewController_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M2DWebViewController_left@2x.png"; sourceTree = "<group>"; };
+		E91E6B3119EC08EA00DBF994 /* M2DWebViewController_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M2DWebViewController_right.png; sourceTree = "<group>"; };
+		E91E6B3219EC08EA00DBF994 /* M2DWebViewController_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "M2DWebViewController_right@2x.png"; sourceTree = "<group>"; };
 		E99F02FF19EBFA6A00B76837 /* M2DWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2DWebViewController.h; sourceTree = "<group>"; };
 		E99F030019EBFA6A00B76837 /* M2DWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2DWebViewController.m; sourceTree = "<group>"; };
-		E99F030619EBFA9800B76837 /* M2DWebViewController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = M2DWebViewController.bundle; sourceTree = "<group>"; };
 		E99F030819EBFBF400B76837 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FF8D055741BCBFEF35F99299 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,7 +221,10 @@
 		E99F02F919EBFA6A00B76837 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E99F030619EBFA9800B76837 /* M2DWebViewController.bundle */,
+				E91E6B2F19EC08EA00DBF994 /* M2DWebViewController_left.png */,
+				E91E6B3019EC08EA00DBF994 /* M2DWebViewController_left@2x.png */,
+				E91E6B3119EC08EA00DBF994 /* M2DWebViewController_right.png */,
+				E91E6B3219EC08EA00DBF994 /* M2DWebViewController_right@2x.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -318,10 +327,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91E6B3519EC08EA00DBF994 /* M2DWebViewController_right.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				E91E6B3419EC08EA00DBF994 /* M2DWebViewController_left@2x.png in Resources */,
 				6003F5A1195388D20070C39A /* Main.storyboard in Resources */,
-				E99F030719EBFA9800B76837 /* M2DWebViewController.bundle in Resources */,
+				E91E6B3319EC08EA00DBF994 /* M2DWebViewController_left.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				E91E6B3619EC08EA00DBF994 /* M2DWebViewController_right@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
