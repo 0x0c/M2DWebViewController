@@ -89,6 +89,12 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[self.navigationController setToolbarHidden:YES animated:YES];
+}
+
 - (void)setSmoothScroll:(BOOL)smoothScroll
 {
 	UIWebView *webView = webView_;
