@@ -10,29 +10,20 @@
 Pod::Spec.new do |s|
   s.name             = "M2DWebViewController"
   s.version          = "0.1.0"
-  s.summary          = "A short description of M2DWebViewController."
-  s.description      = <<-DESC
-                       An optional longer description of M2DWebViewController
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/M2DWebViewController"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.summary          = "Simple built-in web view controller."
+  s.homepage         = "https://github.com/0x0c/M2DWebViewController"
   s.license          = 'MIT'
   s.author           = { "Akira Matsuda" => "akira.m.itachi@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/M2DWebViewController.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/0x0c/M2DWebViewController.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
   s.resource_bundles = {
-    'M2DWebViewController' => ['Pod/Assets/*.png']
+    'M2DWebViewController' => ['Pod/Assets/**']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'WebKit'
 end
