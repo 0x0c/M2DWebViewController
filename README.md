@@ -5,6 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
 [![Platform](https://img.shields.io/cocoapods/p/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
 
+
+![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/1.png)
+![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/2.png)
+![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/3.png)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
