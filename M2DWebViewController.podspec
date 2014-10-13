@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Akira Matsuda" => "akira.m.itachi@gmail.com" }
   s.source           = { :git => "https://github.com/0x0c/M2DWebViewController.git", :tag => s.version.to_s }
-  s.screenshots     = "https://raw.github.com/0x0c/LMMediaPlayer/master/images/1.png", "https://raw.github.com/0x0c/LMMediaPlayer/master/images/2.png", "https://raw.github.com/0x0c/LMMediaPlayer/master/images/3.png"
+  s.screenshots     = "https://raw.github.com/0x0c/M2DWebViewController/master/images/1.png", "https://raw.github.com/0x0c/M2DWebViewController/master/images/2.png", "https://raw.github.com/0x0c/M2DWebViewController/master/images/3.png"
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true

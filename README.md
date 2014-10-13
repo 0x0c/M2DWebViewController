@@ -6,9 +6,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
 
 
-![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/1.png)
-![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/2.png)
-![](https://raw.github.com/0x0c/LMMediaPlayer/master/images/3.png)
+![](https://raw.github.com/0x0c/M2DWebViewController/master/images/1.png)
+![](https://raw.github.com/0x0c/M2DWebViewController/master/images/2.png)
+![](https://raw.github.com/0x0c/M2DWebViewController/master/images/3.png)
 
 ## Usage
 
