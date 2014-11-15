@@ -17,6 +17,7 @@
 typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 	M2DWebViewTypeUIKit,
 	M2DWebViewTypeWebKit,
+	M2DWebViewTypeAutoSelect
 };
 
 @interface M2DWebViewController : UIViewController <WKNavigationDelegate, UIWebViewDelegate>
