@@ -37,7 +37,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    self.title = NSLocalizedString(@"Loading...", @"");
+
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_8_0
 	type_ = M2DWebViewTypeUIKit;
 #endif
