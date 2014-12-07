@@ -8,16 +8,16 @@
 
 #import "M2DWebViewController.h"
 
-static const CGSize M2DArrorIconSize = {18, 18};
+static const CGSize M2DArrowIconSize = {18, 18};
 
-typedef NS_ENUM(NSUInteger, ArrorIconDirection) {
-  ArrorIconDirectionLeft,
-  ArrorIconDirectionRight
+typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
+  M2DArrowIconDirectionLeft,
+  M2DArrowIconDirectionRight
 };
 
 @implementation UIImage (M2DArrowIcon)
 
-+ (UIImage *)m2d_arrowIconWithDirection:(ArrorIconDirection)direction size:(CGSize)size
++ (UIImage *)m2d_arrowIconWithDirection:(M2DArrowIconDirection)direction size:(CGSize)size
 {
     if (CGSizeEqualToSize(size, CGSizeZero)) {
         return [[UIImage alloc] init];
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, ArrorIconDirection) {
     CGContextSaveGState(context);
     CGContextBeginPath(context);
 
-    if (direction == ArrorIconDirectionRight) {
+    if (direction == M2DArrowIconDirectionRight) {
         CGContextMoveToPoint(context, 0, 0);
         CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
         CGContextAddLineToPoint(context, 0, CGRectGetMaxY(rect));
@@ -117,8 +117,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	[self.navigationController setToolbarHidden:NO animated:YES];
 	if (goBackButton_ == nil) {
 		NSArray *toolbarItems = nil;
-		goBackButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:ArrorIconDirectionLeft size:M2DArrorIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
-		goForwardButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:ArrorIconDirectionRight size:M2DArrorIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
+		goBackButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:M2DArrowIconDirectionLeft size:M2DArrowIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
+		goForwardButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:M2DArrowIconDirectionRight size:M2DArrowIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
 		UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *fixedSpace19 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 		fixedSpace19.width = 19;
