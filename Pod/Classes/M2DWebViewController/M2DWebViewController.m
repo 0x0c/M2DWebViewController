@@ -8,6 +8,55 @@
 
 #import "M2DWebViewController.h"
 
+static const CGSize M2DArrorIconSize = {18, 18};
+
+typedef NS_ENUM(NSUInteger, ArrorIconDirection) {
+  ArrorIconDirectionLeft,
+  ArrorIconDirectionRight
+};
+
+@implementation UIImage (M2DArrowIcon)
+
++ (UIImage *)m2d_arrowIconWithDirection:(ArrorIconDirection)direction size:(CGSize)size
+{
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        return [[UIImage alloc] init];
+    }
+
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGRect rect = {CGPointZero, size};
+
+    CGContextSaveGState(context);
+    CGContextBeginPath(context);
+
+    if (direction == ArrorIconDirectionRight) {
+        CGContextMoveToPoint(context, 0, 0);
+        CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
+        CGContextAddLineToPoint(context, 0, CGRectGetMaxY(rect));
+    } else {
+        CGContextMoveToPoint(context, CGRectGetMaxX(rect), 0);
+        CGContextAddLineToPoint(context, 0, CGRectGetMidY(rect));
+        CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+    }
+
+    CGContextClosePath(context);
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextFillPath(context);
+    CGContextRestoreGState(context);
+
+    UIImage *icon = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return icon;
+}
+
+@end
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
 @interface M2DWebViewController ()
 
 @end
@@ -68,8 +117,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	[self.navigationController setToolbarHidden:NO animated:YES];
 	if (goBackButton_ == nil) {
 		NSArray *toolbarItems = nil;
-		goBackButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage imageWithContentsOfFile:[self getFilePath:@"M2DWebViewController_left.png"]] style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
-		goForwardButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage imageWithContentsOfFile:[self getFilePath:@"M2DWebViewController_right.png"]] style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
+		goBackButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:ArrorIconDirectionLeft size:M2DArrorIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
+		goForwardButton_ = [[UIBarButtonItem alloc] initWithImage:[UIImage m2d_arrowIconWithDirection:ArrorIconDirectionRight size:M2DArrorIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
 		UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *fixedSpace19 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 		fixedSpace19.width = 19;

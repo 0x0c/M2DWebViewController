@@ -21,9 +21,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*.{h,m}'
-  s.resource_bundles = {
-    'M2DWebViewController' => ['Pod/Assets/**']
-  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'WebKit'
