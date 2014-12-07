@@ -44,12 +44,14 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	
 	if (type_ == M2DWebViewTypeUIKit) {
 		webView_ = [[UIWebView alloc] initWithFrame:self.view.bounds];
+		[(UIWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 		((UIWebView *)webView_).delegate = self;
 		[(UIWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 	}
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
 	else if (type_ == M2DWebViewTypeWebKit || type_ == M2DWebViewTypeAutoSelect) {
 		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
+		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 		((WKWebView *)webView_).navigationDelegate = self;
 		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 	}
