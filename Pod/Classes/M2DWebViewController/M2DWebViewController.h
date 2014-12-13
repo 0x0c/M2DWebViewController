@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 @property (nonatomic, copy) void (^actionButtonPressedHandler)(NSString *pageTitle, NSURL *url);
 
 - (instancetype)initWithURL:(NSURL *)url type:(M2DWebViewType)type;
+- (instancetype)initWithURL:(NSURL *)url type:(M2DWebViewType)type backArrowImage:(UIImage *)backArrowImage forwardArrowImage:(UIImage *)forwardArrowImage;
 - (void)goForward:(id)sender;
 - (void)goBack:(id)sender;
 - (void)refresh:(id)sender;

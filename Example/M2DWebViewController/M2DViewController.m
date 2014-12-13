@@ -45,4 +45,30 @@
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (IBAction)showWithArrowImage:(id)sender
+{
+	CGSize size = CGSizeMake(18, 18);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGRect rect = {CGPointZero, size};
+	
+	CGContextSaveGState(context);
+	CGContextBeginPath(context);
+	
+	CGContextMoveToPoint(context, 0, 0);
+	CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
+	CGContextAddLineToPoint(context, 0, CGRectGetMaxY(rect));
+	
+	CGContextClosePath(context);
+	CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+	CGContextFillPath(context);
+	CGContextRestoreGState(context);
+	
+	UIImage *icon = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit backArrowImage:icon forwardArrowImage:icon];
+	[self.navigationController pushViewController:viewController animated:YES];
+}
+
 @end

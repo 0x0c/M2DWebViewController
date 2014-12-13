@@ -35,13 +35,24 @@
                                     <action selector="show:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fa5-Oa-Wie"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGM-5e-D8s">
+                                <rect key="frame" x="113" y="352" width="85" height="30"/>
+                                <state key="normal" title="arrow image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithArrowImage:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dV2-vy-m0m"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="CUn-xZ-2cR" secondAttribute="centerY" constant="14" id="8kA-83-yxi"/>
+                            <constraint firstAttribute="centerY" secondItem="XGM-5e-D8s" secondAttribute="centerY" constant="-83" id="Ji3-R8-q4W"/>
                             <constraint firstAttribute="centerX" secondItem="XrB-vd-6Xg" secondAttribute="centerX" id="gI4-4c-mzC"/>
                             <constraint firstAttribute="centerY" secondItem="XrB-vd-6Xg" secondAttribute="centerY" constant="-37" id="leK-Mm-sGG"/>
                             <constraint firstAttribute="centerX" secondItem="CUn-xZ-2cR" secondAttribute="centerX" constant="4.5" id="vNI-4g-5O5"/>
+                            <constraint firstAttribute="centerX" secondItem="XGM-5e-D8s" secondAttribute="centerX" constant="4.5" id="wbI-Kh-xap"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cLe-9W-urx"/>

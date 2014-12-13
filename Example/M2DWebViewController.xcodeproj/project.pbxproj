@@ -24,7 +24,6 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		D7327120609861F29FC56149 /* libPods-M2DWebViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64939D387F863473C21F1 /* libPods-M2DWebViewController.a */; };
 		E99F030919EBFBF400B76837 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99F030819EBFBF400B76837 /* WebKit.framework */; };
-		E9A1D19D1A3A2901006807DE /* M2DWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D19B1A3A2901006807DE /* M2DWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,7 +391,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* M2DAppDelegate.m in Sources */,
-				E9A1D19D1A3A2901006807DE /* M2DWebViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* M2DViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
