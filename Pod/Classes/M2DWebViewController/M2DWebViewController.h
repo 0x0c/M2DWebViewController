@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 - (void)goForward:(id)sender;
 - (void)goBack:(id)sender;
 - (void)refresh:(id)sender;
+- (void)stop:(id)sender;
 - (void)doAction:(id)sender;
 - (void)loadURL:(NSURL *)url;
 - (void)setSmoothScroll:(BOOL)smoothScroll;
