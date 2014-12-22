@@ -196,11 +196,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	url_ = [webView.URL copy];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
@@ -220,21 +216,13 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	}
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stop:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -258,11 +246,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	url_ = [webView.request.URL copy];
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -282,21 +266,13 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	}
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stop:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	
-	NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	[items replaceObjectAtIndex:5 withObject:refreshButton];
-	[self.navigationController.toolbar setItems:items];
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -346,6 +322,22 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (NSString *)getFilePath:(NSString *)filename
 {
 	return 	[NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] pathForResource:@"M2DWebViewController" ofType:@"bundle"], filename];
+}
+
+- (void)updateToolbarItemsWithType:(UIBarButtonSystemItem)type
+{
+	if (type == UIBarButtonSystemItemRefresh) {
+		NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
+		UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+		[items replaceObjectAtIndex:5 withObject:refreshButton];
+		[self.navigationController.toolbar setItems:items];
+	}
+	else if (type == UIBarButtonSystemItemStop) {
+		NSMutableArray *items = [[self.navigationController.toolbar items] mutableCopy];
+		UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stop:)];
+		[items replaceObjectAtIndex:5 withObject:refreshButton];
+		[self.navigationController.toolbar setItems:items];
+	}
 }
 
 @end
