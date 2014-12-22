@@ -53,10 +53,6 @@ typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
 
 @end
 
-
-////////////////////////////////////////////////////////////////////////////////
-
-
 @interface M2DWebViewController ()
 
 @property (nonatomic, copy) UIImage *backArrowImage;
@@ -166,7 +162,18 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	}
 }
 
-#pragma mark - WKWebViewDelegate
+#pragma mark - WKUIDelegate
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+	if (!navigationAction.targetFrame.isMainFrame) {
+		[webView loadRequest:navigationAction.request];
+	}
+	
+	return nil;
+}
+
+#pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
@@ -290,6 +297,11 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	[items replaceObjectAtIndex:5 withObject:refreshButton];
 	[self.navigationController.toolbar setItems:items];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+	return YES;
 }
 
 #pragma mark -

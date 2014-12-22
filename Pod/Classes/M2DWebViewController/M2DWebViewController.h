@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 	M2DWebViewTypeAutoSelect
 };
 
-@interface M2DWebViewController : UIViewController <WKNavigationDelegate, UIWebViewDelegate>
+@interface M2DWebViewController : UIViewController <WKUIDelegate, WKNavigationDelegate, UIWebViewDelegate>
 {
 	NSURL *url_;
 	UIBarButtonItem *goForwardButton_;
