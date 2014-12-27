@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -44,18 +45,30 @@
                                     <action selector="showWithArrowImage:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dV2-vy-m0m"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qF-nt-LQt">
+                                <rect key="frame" x="16" y="212" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="CUn-xZ-2cR" secondAttribute="centerY" constant="14" id="8kA-83-yxi"/>
+                            <constraint firstItem="8qF-nt-LQt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="DZi-8j-Kbq"/>
+                            <constraint firstAttribute="centerX" secondItem="8qF-nt-LQt" secondAttribute="centerX" id="Dza-2G-SZF"/>
+                            <constraint firstAttribute="centerY" secondItem="8qF-nt-LQt" secondAttribute="centerY" constant="57" id="Feq-uw-Q56"/>
                             <constraint firstAttribute="centerY" secondItem="XGM-5e-D8s" secondAttribute="centerY" constant="-83" id="Ji3-R8-q4W"/>
                             <constraint firstAttribute="centerX" secondItem="XrB-vd-6Xg" secondAttribute="centerX" id="gI4-4c-mzC"/>
                             <constraint firstAttribute="centerY" secondItem="XrB-vd-6Xg" secondAttribute="centerY" constant="-37" id="leK-Mm-sGG"/>
+                            <constraint firstItem="8qF-nt-LQt" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="rgc-pm-R33"/>
                             <constraint firstAttribute="centerX" secondItem="CUn-xZ-2cR" secondAttribute="centerX" constant="4.5" id="vNI-4g-5O5"/>
                             <constraint firstAttribute="centerX" secondItem="XGM-5e-D8s" secondAttribute="centerX" constant="4.5" id="wbI-Kh-xap"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cLe-9W-urx"/>
+                    <connections>
+                        <outlet property="urlTextField" destination="8qF-nt-LQt" id="5AJ-ZF-gBy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

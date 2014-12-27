@@ -9,7 +9,9 @@
 #import "M2DViewController.h"
 #import "M2DWebViewController.h"
 
-@interface M2DViewController ()
+@interface M2DViewController () <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *urlTextField;
 
 @end
 
@@ -19,6 +21,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	self.urlTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -29,13 +32,28 @@
 
 - (IBAction)show:(id)sender
 {
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit];
+	NSURL *url = nil;
+	if (self.urlTextField.text.length > 0) {
+		url = [NSURL URLWithString:self.urlTextField.text];
+	}
+	else {
+		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
+	}
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)show2:(id)sender
 {
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit];
+	NSURL *url = nil;
+	if (self.urlTextField.text.length > 0) {
+		url = [NSURL URLWithString:self.urlTextField.text];
+	}
+	else {
+		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
+	}
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
+	[self.navigationController pushViewController:viewController animated:YES];
 	__weak typeof(viewController) bviewcontroller = viewController;
 	viewController.actionButtonPressedHandler = ^(NSString *pageTitle, NSURL *url){
 		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pageTitle, url] applicationActivities:@[]];
@@ -67,8 +85,23 @@
 	UIImage *icon = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit backArrowImage:icon forwardArrowImage:icon];
+	NSURL *url = nil;
+	if (self.urlTextField.text.length > 0) {
+		url = [NSURL URLWithString:self.urlTextField.text];
+	}
+	else {
+		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
+	}
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit backArrowImage:icon forwardArrowImage:icon];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[textField resignFirstResponder];
+	return YES;
 }
 
 @end
