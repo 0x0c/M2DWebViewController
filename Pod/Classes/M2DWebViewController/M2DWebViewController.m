@@ -164,14 +164,14 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 #pragma mark - WKUIDelegate
 
-- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
-{
-	if (!navigationAction.targetFrame.isMainFrame) {
-		[webView loadRequest:navigationAction.request];
-	}
-	
-	return nil;
-}
+//- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+//{
+//	if (!navigationAction.targetFrame.isMainFrame) {
+//		[webView loadRequest:navigationAction.request];
+//	}
+//	
+//	return nil;
+//}
 
 #pragma mark - WKNavigationDelegate
 
@@ -277,6 +277,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+	self.title = [webView stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
+
 	return YES;
 }
 
