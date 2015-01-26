@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "M2DWebViewController"
-  s.version          = "0.1.9"
+  s.version          = "0.1.10"
   s.summary          = "Simple built-in web view controller."
   s.homepage         = "https://github.com/0x0c/M2DWebViewController"
   s.license          = 'MIT'
