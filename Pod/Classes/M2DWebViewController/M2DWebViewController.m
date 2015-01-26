@@ -292,6 +292,19 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 #pragma mark -
 
+- (NSString *)realTitle
+{
+	NSString *title = nil;
+	if ([webView_ isKindOfClass:[UIWebView class]]) {
+		title = [webView_ stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
+	}
+	else {
+		title = [(WKWebView *)webView_ title];
+	}
+	
+	return title;
+}
+
 - (void)goForward:(id)sender
 {
 	UIWebView *webView = webView_;
@@ -319,7 +332,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (void)doAction:(id)sender
 {
 	if (self.actionButtonPressedHandler) {
-		self.actionButtonPressedHandler(self.title, url_);
+		NSString *title = [self realTitle];
+		self.actionButtonPressedHandler(title, url_);
 	}
 }
 
@@ -329,7 +343,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	[webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
-- (NSString *)getFilePath:(NSString *)filename
+- (NSString *)resourceFilePath:(NSString *)filename
 {
 	return 	[NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] pathForResource:@"M2DWebViewController" ofType:@"bundle"], filename];
 }
