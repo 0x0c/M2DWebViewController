@@ -132,7 +132,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[self.navigationController setToolbarHidden:NO animated:YES];
+	[self.navigationController setToolbarHidden:self.toolbarHidden animated:YES];
 	if (goBackButton_ == nil) {
 		NSArray *toolbarItems = nil;
 		goBackButton_ = [[UIBarButtonItem alloc] initWithImage:self.backArrowImage ?: [UIImage m2d_arrowIconWithDirection:M2DArrowIconDirectionLeft size:M2DArrowIconSize] style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
@@ -168,6 +168,12 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	else {
 		webView.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
 	}
+}
+
+- (void)setToolbarHidden:(BOOL)toolbarHidden
+{
+	_toolbarHidden = toolbarHidden;
+	[self.navigationController setToolbarHidden:self.toolbarHidden animated:YES];
 }
 
 #pragma mark - WKUIDelegate

@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 
 @interface M2DWebViewController : UIViewController <WKUIDelegate, WKNavigationDelegate, UIWebViewDelegate>
 
-@property (assign, nonatomic) BOOL smoothScroll;
+@property (nonatomic, assign) BOOL toolbarHidden;
+@property (nonatomic, assign) BOOL smoothScroll;
 @property (nonatomic, readonly) id webView;
 @property (nonatomic, copy) void (^actionButtonPressedHandler)(NSString *pageTitle, NSURL *url);
 
