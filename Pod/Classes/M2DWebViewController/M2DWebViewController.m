@@ -106,9 +106,9 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Loading...", @"");
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_8_0
-	type_ = M2DWebViewTypeUIKit;
-#endif
+	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+		type_ = M2DWebViewTypeUIKit;
+	}
 	
 	if (type_ == M2DWebViewTypeUIKit) {
 		webView_ = [[UIWebView alloc] initWithFrame:self.view.bounds];
@@ -116,14 +116,12 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 		((UIWebView *)webView_).delegate = self;
 		[(UIWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 	}
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
 	else if (type_ == M2DWebViewTypeWebKit || type_ == M2DWebViewTypeAutoSelect) {
 		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
 		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 		((WKWebView *)webView_).navigationDelegate = self;
 		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 	}
-#endif
 	
 	[self.view addSubview:webView_];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
