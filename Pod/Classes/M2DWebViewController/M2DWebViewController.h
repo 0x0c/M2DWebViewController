@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@import QuartzCore;
+#import <QuartzCore/QuartzCore.h>
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-@import WebKit;
+#import <WebKit/WebKit.h>
 #endif
 
 @class M2DWebViewController;
