@@ -8,7 +8,8 @@
 
 #import "M2DWebViewController.h"
 
-static const CGSize M2DArrowIconSize = {18, 18};
+static const CGSize M2DArrowIconSize = {10, 18};
+static const CGFloat M2DArrowIconLineWidth = 1.3;
 
 typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
   M2DArrowIconDirectionLeft,
@@ -28,21 +29,23 @@ typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
     CGRect rect = {CGPointZero, size};
 
     CGContextSaveGState(context);
+	
+	CGContextSetLineJoin(context, kCGLineJoinMiter);
+	CGContextSetLineWidth(context, M2DArrowIconLineWidth);
     CGContextBeginPath(context);
 
     if (direction == M2DArrowIconDirectionRight) {
-        CGContextMoveToPoint(context, 0, 0);
-        CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMidY(rect));
-        CGContextAddLineToPoint(context, 0, CGRectGetMaxY(rect));
-    } else {
-        CGContextMoveToPoint(context, CGRectGetMaxX(rect), 0);
-        CGContextAddLineToPoint(context, 0, CGRectGetMidY(rect));
-        CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+        CGContextMoveToPoint(context, M2DArrowIconLineWidth, M2DArrowIconLineWidth);
+        CGContextAddLineToPoint(context, CGRectGetMaxX(rect) - M2DArrowIconLineWidth, CGRectGetMidY(rect));
+        CGContextAddLineToPoint(context, M2DArrowIconLineWidth, CGRectGetMaxY(rect) - M2DArrowIconLineWidth);
+    }
+	else {
+        CGContextMoveToPoint(context, CGRectGetMaxX(rect) - M2DArrowIconLineWidth, M2DArrowIconLineWidth);
+        CGContextAddLineToPoint(context, M2DArrowIconLineWidth, CGRectGetMidY(rect));
+        CGContextAddLineToPoint(context, CGRectGetMaxX(rect) - M2DArrowIconLineWidth, CGRectGetMaxY(rect) - M2DArrowIconLineWidth);
     }
 
-    CGContextClosePath(context);
-    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
-    CGContextFillPath(context);
+	CGContextStrokePath(context);
     CGContextRestoreGState(context);
 
     UIImage *icon = UIGraphicsGetImageFromCurrentImageContext();
