@@ -195,6 +195,9 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:)]) {
 		[self.delegate m2d_webView:webView runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
 	}
+	else {
+		completionHandler();
+	}
 }
 
 - (void)webView:(WKWebView * _Nonnull)webView runJavaScriptConfirmPanelWithMessage:(NSString * _Nonnull)message initiatedByFrame:(WKFrameInfo * _Nonnull)frame completionHandler:(void (^ _Nonnull)(BOOL result))completionHandler
@@ -202,12 +205,18 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:)]) {
 		[self.delegate m2d_webView:webView runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
 	}
+	else {
+		completionHandler(YES);
+	}
 }
 
 - (void)webView:(WKWebView * _Nonnull)webView runJavaScriptTextInputPanelWithPrompt:(NSString * _Nonnull)prompt defaultText:(NSString * _Nullable)defaultText initiatedByFrame:(WKFrameInfo * _Nonnull)frame completionHandler:(void (^ _Nonnull)(NSString * _Nullable result))completionHandler
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:)]) {
 		[self.delegate m2d_webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+	}
+	else {
+		completionHandler(nil);
 	}
 }
 
@@ -239,12 +248,18 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:decidePolicyForNavigationAction:decisionHandler:)]) {
 		[self.delegate m2d_webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
 	}
+	else {
+		decisionHandler(WKNavigationActionPolicyAllow);
+	}
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:decidePolicyForNavigationResponse:decisionHandler:)]) {
 		[self.delegate m2d_webView:webView decidePolicyForNavigationResponse:navigationResponse decisionHandler:decisionHandler];
+	}
+	else {
+		decisionHandler(WKNavigationResponsePolicyAllow);
 	}
 }
 
@@ -307,6 +322,9 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:didReceiveAuthenticationChallenge:completionHandler:)]) {
 		[self.delegate m2d_webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+	}
+	else {
+		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 	}
 }
 
