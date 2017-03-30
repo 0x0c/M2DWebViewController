@@ -9,7 +9,7 @@
 #import "M2DViewController.h"
 #import "M2DWebViewController.h"
 
-@interface M2DViewController () <UITextFieldDelegate>
+@interface M2DViewController () <UITextFieldDelegate, M2DWebViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *urlTextField;
 
@@ -40,6 +40,7 @@
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
 	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
+	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -53,6 +54,7 @@
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
 	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
+	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 	__weak typeof(viewController) bviewcontroller = viewController;
 	viewController.actionButtonPressedHandler = ^(NSString *pageTitle, NSURL *url){
@@ -102,6 +104,13 @@
 {
 	[textField resignFirstResponder];
 	return YES;
+}
+
+#pragma mark - M2DWebViewControllerDelegate
+
+- (void)m2d_webViewDidStartLoad:(UIWebView *)webView
+{
+	NSLog(@"hoge");
 }
 
 @end

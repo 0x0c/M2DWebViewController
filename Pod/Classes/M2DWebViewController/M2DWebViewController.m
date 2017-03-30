@@ -75,8 +75,6 @@ typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
 
 static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=document.getElementsByTagName(\'title\');elements[0].innerText";
 
-@synthesize webView = webView_;
-
 - (id)initWithURL:(NSURL *)url type:(M2DWebViewType)type
 {
 	self = [super init];
@@ -179,16 +177,145 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 #pragma mark - WKUIDelegate
 
-//- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
-//{
-//	if (!navigationAction.targetFrame.isMainFrame) {
-//		[webView loadRequest:navigationAction.request];
-//	}
-//	
-//	return nil;
-//}
+- (WKWebView * _Nullable)webView:(WKWebView * _Nonnull)webView createWebViewWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration forNavigationAction:(WKNavigationAction * _Nonnull)navigationAction windowFeatures:(WKWindowFeatures * _Nonnull)windowFeatures
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:createWebViewWithConfiguration:forNavigationAction:windowFeatures:)]) {
+		[self.delegate m2d_webView:webView createWebViewWithConfiguration:configuration forNavigationAction:navigationAction windowFeatures:windowFeatures];
+	}
+}
+
+- (void)webViewDidClose:(WKWebView * _Nonnull)webView
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webViewDidClose:)]) {
+		[self.delegate m2d_webViewDidClose:webView];
+	}
+}
+- (void)webView:(WKWebView * _Nonnull)webView runJavaScriptAlertPanelWithMessage:(NSString * _Nonnull)message initiatedByFrame:(WKFrameInfo * _Nonnull)frame completionHandler:(void (^ _Nonnull)(void))completionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:)]) {
+		[self.delegate m2d_webView:webView runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull)webView runJavaScriptConfirmPanelWithMessage:(NSString * _Nonnull)message initiatedByFrame:(WKFrameInfo * _Nonnull)frame completionHandler:(void (^ _Nonnull)(BOOL result))completionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:)]) {
+		[self.delegate m2d_webView:webView runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame completionHandler:completionHandler];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull)webView runJavaScriptTextInputPanelWithPrompt:(NSString * _Nonnull)prompt defaultText:(NSString * _Nullable)defaultText initiatedByFrame:(WKFrameInfo * _Nonnull)frame completionHandler:(void (^ _Nonnull)(NSString * _Nullable result))completionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:)]) {
+		[self.delegate m2d_webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+	}
+}
+
+- (BOOL)webView:(WKWebView * _Nonnull)webView shouldPreviewElement:(WKPreviewElementInfo * _Nonnull)elementInfo
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:shouldPreviewElement:)]) {
+		[self.delegate m2d_webView:webView shouldPreviewElement:elementInfo];
+	}
+}
+
+- (UIViewController * _Nullable)webView:(WKWebView * _Nonnull)webView previewingViewControllerForElement:(WKPreviewElementInfo * _Nonnull)elementInfo defaultActions:(NSArray<id <WKPreviewActionItem>> * _Nonnull)previewActions
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:previewingViewControllerForElement:defaultActions:)]) {
+		[self.delegate m2d_webView:webView previewingViewControllerForElement:elementInfo defaultActions:previewActions];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull)webView commitPreviewingViewController:(UIViewController * _Nonnull)previewingViewController
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:commitPreviewingViewController:)]) {
+		[self.delegate m2d_webView:webView commitPreviewingViewController:previewingViewController];
+	}
+}
 
 #pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView * _Nonnull )webView decidePolicyForNavigationAction:(WKNavigationAction * _Nonnull )navigationAction decisionHandler:(void (^ _Nonnull)(WKNavigationActionPolicy))decisionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:decidePolicyForNavigationAction:decisionHandler:)]) {
+		[self.delegate m2d_webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
+	}
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:decidePolicyForNavigationResponse:decisionHandler:)]) {
+		[self.delegate m2d_webView:webView decidePolicyForNavigationResponse:navigationResponse decisionHandler:decisionHandler];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didStartProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation
+{
+	if ([webView_ canGoBack]) {
+		goBackButton_.enabled = YES;
+	}
+	else {
+		goBackButton_.enabled = NO;
+	}
+	
+	if ([webView_ canGoForward]) {
+		goForwardButton_.enabled = YES;
+	}
+	else {
+		goForwardButton_.enabled = NO;
+	}
+	
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
+	
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didStartProvisionalNavigation:)]) {
+		[self.delegate m2d_webView:webView didStartProvisionalNavigation:navigation];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didReceiveServerRedirectForProvisionalNavigation:)]) {
+		[self.delegate m2d_webView:webView didReceiveServerRedirectForProvisionalNavigation:navigation];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didFailProvisionalNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didFailProvisionalNavigation:withError:)]) {
+		[self.delegate m2d_webView:webView didFailProvisionalNavigation:navigation withError:error];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didCommitNavigation:(WKNavigation * _Null_unspecified)navigation
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didCommitNavigation:)]) {
+		[self.delegate m2d_webView:webView didCommitNavigation:navigation];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didFailNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error
+{
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
+	
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didFailNavigation:withError:)]) {
+		[self.delegate m2d_webView:webView didFailNavigation:navigation withError:error];
+	}
+}
+
+- (void)webView:(WKWebView * _Nonnull )webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge * _Nonnull )challenge completionHandler:(void (^ _Nonnull)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didReceiveAuthenticationChallenge:completionHandler:)]) {
+		[self.delegate m2d_webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+	}
+}
+
+- (void)webViewWebContentProcessDidTerminate:(WKWebView * _Nonnull )webView
+{
+	if ([self.delegate respondsToSelector:@selector(m2d_webViewWebContentProcessDidTerminate:)]) {
+		[self.delegate m2d_webViewWebContentProcessDidTerminate:webView];
+	}
+}
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
@@ -212,32 +339,10 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
-}
-
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
-{
-	if ([webView_ canGoBack]) {
-		goBackButton_.enabled = YES;
-	}
-	else {
-		goBackButton_.enabled = NO;
-	}
 	
-	if ([webView_ canGoForward]) {
-		goForwardButton_.enabled = YES;
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didFinishNavigation:)]) {
+		[self.delegate m2d_webView:webView didFinishNavigation:navigation];
 	}
-	else {
-		goForwardButton_.enabled = NO;
-	}
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
-}
-
-- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
-{
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -262,6 +367,10 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
+	
+	if ([self.delegate respondsToSelector:@selector(m2d_webViewDidFinishLoad:)]) {
+		[self.delegate m2d_webViewDidFinishLoad:webView];
+	}
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -282,18 +391,29 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
+	
+	if ([self.delegate respondsToSelector:@selector(m2d_webViewDidStartLoad:)]) {
+		[self.delegate m2d_webViewDidStartLoad:webView];
+	}
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:didFailLoadWithError:)]) {
+		[self.delegate m2d_webView:webView didFailLoadWithError:error];
+	}
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
 	self.title = [webView stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
-
+	
+	if ([self.delegate respondsToSelector:@selector(m2d_webView:shouldStartLoadWithRequest:navigationType:)]) {
+		return [self.delegate m2d_webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+	}
+	
 	return YES;
 }
 
