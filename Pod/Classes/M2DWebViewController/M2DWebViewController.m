@@ -180,8 +180,10 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (WKWebView * _Nullable)webView:(WKWebView * _Nonnull)webView createWebViewWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration forNavigationAction:(WKNavigationAction * _Nonnull)navigationAction windowFeatures:(WKWindowFeatures * _Nonnull)windowFeatures
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:createWebViewWithConfiguration:forNavigationAction:windowFeatures:)]) {
-		[self.delegate m2d_webView:webView createWebViewWithConfiguration:configuration forNavigationAction:navigationAction windowFeatures:windowFeatures];
+		return [self.delegate m2d_webView:webView createWebViewWithConfiguration:configuration forNavigationAction:navigationAction windowFeatures:windowFeatures];
 	}
+	
+	return nil;
 }
 
 - (void)webViewDidClose:(WKWebView * _Nonnull)webView
@@ -223,15 +225,19 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (BOOL)webView:(WKWebView * _Nonnull)webView shouldPreviewElement:(WKPreviewElementInfo * _Nonnull)elementInfo
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:shouldPreviewElement:)]) {
-		[self.delegate m2d_webView:webView shouldPreviewElement:elementInfo];
+		return [self.delegate m2d_webView:webView shouldPreviewElement:elementInfo];
 	}
+	
+	return NO;
 }
 
 - (UIViewController * _Nullable)webView:(WKWebView * _Nonnull)webView previewingViewControllerForElement:(WKPreviewElementInfo * _Nonnull)elementInfo defaultActions:(NSArray<id <WKPreviewActionItem>> * _Nonnull)previewActions
 {
 	if ([self.delegate respondsToSelector:@selector(m2d_webView:previewingViewControllerForElement:defaultActions:)]) {
-		[self.delegate m2d_webView:webView previewingViewControllerForElement:elementInfo defaultActions:previewActions];
+		return [self.delegate m2d_webView:webView previewingViewControllerForElement:elementInfo defaultActions:previewActions];
 	}
+	
+	return nil;
 }
 
 - (void)webView:(WKWebView * _Nonnull)webView commitPreviewingViewController:(UIViewController * _Nonnull)previewingViewController

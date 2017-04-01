@@ -39,7 +39,7 @@
 	else {
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeWebKit];
 	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -107,6 +107,11 @@
 }
 
 #pragma mark - M2DWebViewControllerDelegate
+
+- (void)m2d_webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
+{
+	decisionHandler(WKNavigationActionPolicyAllow);
+}
 
 - (void)m2d_webViewDidStartLoad:(UIWebView *)webView
 {
