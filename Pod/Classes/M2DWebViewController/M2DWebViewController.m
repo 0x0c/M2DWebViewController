@@ -81,6 +81,22 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	if (self) {
 		url_ = [url copy];
 		type_ = type;
+		if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+			type_ = M2DWebViewTypeUIKit;
+		}
+		
+		if (type_ == M2DWebViewTypeUIKit) {
+			webView_ = [[UIWebView alloc] initWithFrame:self.view.bounds];
+			[(UIWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+			((UIWebView *)webView_).delegate = self;
+			[(UIWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
+		}
+		else if (type_ == M2DWebViewTypeWebKit || type_ == M2DWebViewTypeAutoSelect) {
+			webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
+			[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+			((WKWebView *)webView_).navigationDelegate = self;
+			[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
+		}
 	}
 	
 	return self;
@@ -111,24 +127,6 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Loading...", @"");
-
-	if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-		type_ = M2DWebViewTypeUIKit;
-	}
-	
-	if (type_ == M2DWebViewTypeUIKit) {
-		webView_ = [[UIWebView alloc] initWithFrame:self.view.bounds];
-		[(UIWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-		((UIWebView *)webView_).delegate = self;
-		[(UIWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
-	}
-	else if (type_ == M2DWebViewTypeWebKit || type_ == M2DWebViewTypeAutoSelect) {
-		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
-		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-		((WKWebView *)webView_).navigationDelegate = self;
-		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
-	}
-	
 	[self.view addSubview:webView_];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
