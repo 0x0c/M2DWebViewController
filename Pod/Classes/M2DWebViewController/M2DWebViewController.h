@@ -67,8 +67,8 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 
 - (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url type:(M2DWebViewType)type;
 - (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url type:(M2DWebViewType)type backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
-- (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration *)configuration url:(NSURL * _Nullable)url;
-- (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration *)configuration url:(NSURL * _Nullable)url backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
+- (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration url:(NSURL * _Nullable)url;
+- (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration url:(NSURL * _Nullable)url backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
 - (void)goForward:(id _Nonnull)sender;
 - (void)goBack:(id _Nonnull)sender;
 - (void)refresh:(id _Nonnull)sender;
