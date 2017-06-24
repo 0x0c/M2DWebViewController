@@ -59,6 +59,7 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 @interface M2DWebViewController : UIViewController <UIWebViewDelegate>
 #endif
 
+@property (nonatomic, readonly) id _Nullable webView;
 @property (nonatomic, assign) BOOL toolbarHidden;
 @property (nonatomic, assign) BOOL smoothScroll;
 @property (nonatomic, weak) id<M2DWebViewControllerDelegate> _Nullable delegate;
