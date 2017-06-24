@@ -119,10 +119,13 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 {
 	self = [super init];
 	if (self) {
+		url_ = [url copy];
+		type_ = M2DWebViewTypeWebKit;
 		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
 		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 		((WKWebView *)webView_).navigationDelegate = self;
 		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
+		[self.view addSubview:webView_];
 	}
 	
 	return self;
