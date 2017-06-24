@@ -41,6 +41,7 @@
 	}
 	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeWebKit];
 	viewController.delegate = self;
+	NSLog(@"%@", [viewController.webView description]);
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

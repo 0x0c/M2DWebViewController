@@ -97,6 +97,8 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 			((WKWebView *)webView_).navigationDelegate = self;
 			[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 		}
+		
+		[self.view addSubview:webView_];
 	}
 	
 	return self;
@@ -127,7 +129,6 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Loading...", @"");
-	[self.view addSubview:webView_];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
