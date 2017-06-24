@@ -115,6 +115,30 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	return self;
 }
 
+- (instancetype)initWithConfiguration:(WKWebViewConfiguration *)configuration url:(NSURL *)url
+{
+	self = [super init];
+	if (self) {
+		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
+		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+		((WKWebView *)webView_).navigationDelegate = self;
+		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithConfiguration:(WKWebViewConfiguration *)configuration url:(NSURL *)url backArrowImage:(UIImage *)backArrowImage forwardArrowImage:(UIImage *)forwardArrowImage
+{
+	self = [self initWithConfiguration:configuration url:url];
+	if (self) {
+		self.backArrowImage = backArrowImage;
+		self.forwardArrowImage = forwardArrowImage;
+	}
+	
+	return self;
+}
+
 - (void)dealloc
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
