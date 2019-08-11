@@ -145,6 +145,13 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (void)dealloc
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    if ([self.webView isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = self.webView;
+        if (webView.isLoading) {
+            [webView stopLoading];
+        }
+        webView.delegate = nil;
+    }
 }
 
 - (id)webView
