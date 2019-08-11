@@ -56,7 +56,6 @@
 	}
 	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
 	viewController.delegate = self;
-	[self.navigationController pushViewController:viewController animated:YES];
 	__weak typeof(viewController) bviewcontroller = viewController;
 	viewController.actionButtonPressedHandler = ^(NSString *pageTitle, NSURL *url){
 		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pageTitle, url] applicationActivities:@[]];
