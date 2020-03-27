@@ -39,7 +39,7 @@
 	else {
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeWebKit];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url];
 	viewController.delegate = self;
 	NSLog(@"%@", [viewController.webView description]);
 	[self.navigationController pushViewController:viewController animated:YES];
@@ -54,7 +54,7 @@
 	else {
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url];
 	viewController.delegate = self;
 	__weak typeof(viewController) bviewcontroller = viewController;
 	viewController.actionButtonPressedHandler = ^(NSString *pageTitle, NSURL *url){
@@ -94,7 +94,7 @@
 	else {
 		url = [NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"];
 	}
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url type:M2DWebViewTypeUIKit backArrowImage:icon forwardArrowImage:icon];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:url backArrowImage:icon forwardArrowImage:icon];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
