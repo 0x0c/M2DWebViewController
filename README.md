@@ -1,6 +1,6 @@
 # M2DWebViewController
 
-[![CI Status](http://img.shields.io/travis/Akira Matsuda/M2DWebViewController.svg?style=flat)](https://travis-ci.org/Akira Matsuda/M2DWebViewController)
+[![CI Status](http://img.shields.io/travis/Akira/M2DWebViewController.svg?style=flat)](https://travis-ci.org/Akira/M2DWebViewController)
 [![Version](https://img.shields.io/cocoapods/v/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
 [![License](https://img.shields.io/cocoapods/l/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
 [![Platform](https://img.shields.io/cocoapods/p/M2DWebViewController.svg?style=flat)](http://cocoadocs.org/docsets/M2DWebViewController)
@@ -34,7 +34,7 @@ If you want to use WebKit on iOS8, try this.
 
 
 ## Requirements
-iOS7 or later.
+iOS8 or later.
 
 ## Installation
 
