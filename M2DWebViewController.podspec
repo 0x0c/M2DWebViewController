@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "M2DWebViewController"
-  s.version          = "0.2.6"
+  s.version          = "1.0.0"
   s.summary          = "Simple built-in web view controller."
   s.homepage         = "https://github.com/0x0c/M2DWebViewController"
   s.license          = 'MIT'
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/0x0c/M2DWebViewController.git", :tag => s.version.to_s }
   s.screenshots     = "https://raw.github.com/0x0c/M2DWebViewController/master/images/1.png", "https://raw.github.com/0x0c/M2DWebViewController/master/images/2.png", "https://raw.github.com/0x0c/M2DWebViewController/master/images/3.png"
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*.{h,m}'

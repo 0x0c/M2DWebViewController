@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
 #import <WebKit/WebKit.h>
-#endif
 
 @protocol M2DWebViewControllerDelegate <NSObject>
 @optional
@@ -37,27 +35,11 @@
 - (void)m2d_webView:(WKWebView * _Nonnull)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler;
 - (void)m2d_webViewWebContentProcessDidTerminate:(WKWebView * _Nonnull)webView API_AVAILABLE(macosx(10.11), ios(9.0));
 
-// UIWebViewDelegate
-- (BOOL)m2d_webView:(UIWebView * _Nonnull)webView shouldStartLoadWithRequest:(NSURLRequest * _Nonnull)request navigationType:(UIWebViewNavigationType)navigationType;
-- (void)m2d_webViewDidFinishLoad:(UIWebView * _Nonnull)webView;
-- (void)m2d_webViewDidStartLoad:(UIWebView * _Nonnull)webView;
-- (void)m2d_webView:(UIWebView * _Nonnull)webView didFailLoadWithError:(NSError * _Nullable)error;
-
 @end
 
 @class M2DWebViewController;
 
-typedef NS_ENUM(NSUInteger, M2DWebViewType) {
-	M2DWebViewTypeUIKit,
-	M2DWebViewTypeWebKit,
-	M2DWebViewTypeAutoSelect
-};
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-@interface M2DWebViewController : UIViewController <WKUIDelegate, WKNavigationDelegate, UIWebViewDelegate>
-#else
-@interface M2DWebViewController : UIViewController <UIWebViewDelegate>
-#endif
+@interface M2DWebViewController : UIViewController <WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic, readonly) id _Nullable webView;
 @property (nonatomic, assign) BOOL toolbarHidden;
@@ -65,8 +47,8 @@ typedef NS_ENUM(NSUInteger, M2DWebViewType) {
 @property (nonatomic, weak) id<M2DWebViewControllerDelegate> _Nullable delegate;
 @property (nonatomic, copy) void (^_Nonnull actionButtonPressedHandler)(NSString * _Nullable pageTitle, NSURL * _Nullable url);
 
-- (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url type:(M2DWebViewType)type;
-- (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url type:(M2DWebViewType)type backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
+- (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url;
+- (instancetype _Nonnull)initWithURL:(NSURL * _Nullable)url backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
 - (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration url:(NSURL * _Nullable)url;
 - (instancetype _Nonnull)initWithConfiguration:(WKWebViewConfiguration * _Nonnull)configuration url:(NSURL * _Nullable)url backArrowImage:(UIImage * _Nullable)backArrowImage forwardArrowImage:(UIImage * _Nullable)forwardArrowImage;
 - (void)goForward:(id _Nonnull)sender;

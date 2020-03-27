@@ -62,8 +62,7 @@ typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
 	UIBarButtonItem *goForwardButton_;
 	UIBarButtonItem *goBackButton_;
 	UIBarButtonItem *actionButton_;
-	id webView_;
-	M2DWebViewType type_;
+	WKWebView *webView_;
 }
 
 @property (nonatomic, copy) UIImage *backArrowImage;
@@ -75,28 +74,16 @@ typedef NS_ENUM(NSUInteger, M2DArrowIconDirection) {
 
 static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=document.getElementsByTagName(\'title\');elements[0].innerText";
 
-- (id)initWithURL:(NSURL *)url type:(M2DWebViewType)type
+- (id)initWithURL:(NSURL *)url
 {
 	self = [super init];
 	if (self) {
 		url_ = [url copy];
-		type_ = type;
-		if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-			type_ = M2DWebViewTypeUIKit;
-		}
 		
-		if (type_ == M2DWebViewTypeUIKit) {
-			webView_ = [[UIWebView alloc] initWithFrame:self.view.bounds];
-			[(UIWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-			((UIWebView *)webView_).delegate = self;
-			[(UIWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
-		}
-		else if (type_ == M2DWebViewTypeWebKit || type_ == M2DWebViewTypeAutoSelect) {
-			webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
-			[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-			((WKWebView *)webView_).navigationDelegate = self;
-			[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
-		}
+        webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds];
+        [webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+        webView_.navigationDelegate = self;
+        [webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 		
 		[self.view addSubview:webView_];
 	}
@@ -104,9 +91,9 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	return self;
 }
 
-- (instancetype)initWithURL:(NSURL *)url type:(M2DWebViewType)type backArrowImage:(UIImage *)backArrowImage forwardArrowImage:(UIImage *)forwardArrowImage
+- (instancetype)initWithURL:(NSURL *)url backArrowImage:(UIImage *)backArrowImage forwardArrowImage:(UIImage *)forwardArrowImage
 {
-	self = [self initWithURL:url type:type];
+	self = [self initWithURL:url];
 	if (self) {
 		self.backArrowImage = backArrowImage;
 		self.forwardArrowImage = forwardArrowImage;
@@ -120,11 +107,10 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	self = [super init];
 	if (self) {
 		url_ = [url copy];
-		type_ = M2DWebViewTypeWebKit;
 		webView_ = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
-		[(WKWebView *)webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-		((WKWebView *)webView_).navigationDelegate = self;
-		[(WKWebView *)webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
+		[webView_ setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+		webView_.navigationDelegate = self;
+		[webView_ loadRequest:[NSURLRequest requestWithURL:url_]];
 		[self.view addSubview:webView_];
 	}
 	
@@ -145,13 +131,6 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 - (void)dealloc
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if ([self.webView isKindOfClass:[UIWebView class]]) {
-        UIWebView *webView = self.webView;
-        if (webView.isLoading) {
-            [webView stopLoading];
-        }
-        webView.delegate = nil;
-    }
 }
 
 - (id)webView
@@ -198,12 +177,11 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 - (void)setSmoothScroll:(BOOL)smoothScroll
 {
-	UIWebView *webView = webView_;
 	if (smoothScroll) {
-		webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+		webView_.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 	}
 	else {
-		webView.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+		webView_.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
 	}
 }
 
@@ -407,115 +385,31 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	}
 }
 
-#pragma mark - UIWebViewDelegate
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-	self.title = [webView stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
-	if ([webView_ canGoBack]) {
-		goBackButton_.enabled = YES;
-	}
-	else {
-		goBackButton_.enabled = NO;
-	}
-	
-	if ([webView_ canGoForward]) {
-		goForwardButton_.enabled = YES;
-	}
-	else {
-		goForwardButton_.enabled = NO;
-	}
-	url_ = [webView.request.URL copy];
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
-	
-	if ([self.delegate respondsToSelector:@selector(m2d_webViewDidFinishLoad:)]) {
-		[self.delegate m2d_webViewDidFinishLoad:webView];
-	}
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-	if ([webView_ canGoBack]) {
-		goBackButton_.enabled = YES;
-	}
-	else {
-		goBackButton_.enabled = NO;
-	}
-	
-	if ([webView_ canGoForward]) {
-		goForwardButton_.enabled = YES;
-	}
-	else {
-		goForwardButton_.enabled = NO;
-	}
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self updateToolbarItemsWithType:UIBarButtonSystemItemStop];
-	
-	if ([self.delegate respondsToSelector:@selector(m2d_webViewDidStartLoad:)]) {
-		[self.delegate m2d_webViewDidStartLoad:webView];
-	}
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[self updateToolbarItemsWithType:UIBarButtonSystemItemRefresh];
-	if ([self.delegate respondsToSelector:@selector(m2d_webView:didFailLoadWithError:)]) {
-		[self.delegate m2d_webView:webView didFailLoadWithError:error];
-	}
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-	self.title = [webView stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
-	
-	if ([self.delegate respondsToSelector:@selector(m2d_webView:shouldStartLoadWithRequest:navigationType:)]) {
-		return [self.delegate m2d_webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-	}
-	
-	return YES;
-}
-
 #pragma mark -
 
 - (NSString *)realTitle
 {
-	NSString *title = nil;
-	if ([webView_ isKindOfClass:[UIWebView class]]) {
-		title = [webView_ stringByEvaluatingJavaScriptFromString:kM2DWebViewControllerGetTitleScript];
-	}
-	else {
-		title = [(WKWebView *)webView_ title];
-	}
-	
-	return title;
+    return [webView_ title];
 }
 
 - (void)goForward:(id)sender
 {
-	UIWebView *webView = webView_;
-	[webView goForward];
+	[webView_ goForward];
 }
 
 - (void)goBack:(id)sender
 {
-	UIWebView *webView = webView_;
-	[webView goBack];
+	[webView_ goBack];
 }
 
 - (void)refresh:(id)sender
 {
-	UIWebView *webView = webView_;
-	[webView reload];
+	[webView_ reload];
 }
 
 - (void)stop:(id)sender
 {
-	UIWebView *webView = webView_;
-	[webView stopLoading];
+	[webView_ stopLoading];
 }
 
 - (void)doAction:(id)sender
@@ -528,8 +422,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 
 - (void)loadURL:(NSURL *)url
 {
-	UIWebView *webView = webView_;
-	[webView loadRequest:[NSURLRequest requestWithURL:url]];
+	[webView_ loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (NSString *)resourceFilePath:(NSString *)filename
