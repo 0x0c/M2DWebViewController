@@ -1,17 +1,23 @@
 PODS:
   - Kiwi (2.3.1)
-  - M2DWebViewController (0.1.5)
+  - M2DWebViewController (2.0.0)
 
 DEPENDENCIES:
   - Kiwi
   - M2DWebViewController (from `../`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Kiwi
+
 EXTERNAL SOURCES:
   M2DWebViewController:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  Kiwi: 73e1400209055ee9c8ba78c6012b6b642d0fb9f7
-  M2DWebViewController: b6b3d7acfbf758fd94288cf8c37cfe68196afb21
+  Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
+  M2DWebViewController: 86769c678269beb89f3da889638497ed37436fbc
 
-COCOAPODS: 0.35.0
+PODFILE CHECKSUM: 9904dd9a6cc16ef0e04b67ff74c5ec447aa1deee
+
+COCOAPODS: 1.9.3

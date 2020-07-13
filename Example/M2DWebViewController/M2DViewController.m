@@ -113,9 +113,4 @@
 	decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)m2d_webViewDidStartLoad:(UIWebView *)webView
-{
-	NSLog(@"hoge");
-}
-
 @end

@@ -138,11 +138,15 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	return webView_;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Loading...", @"");
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
 - (void)viewWillAppear:(BOOL)animated

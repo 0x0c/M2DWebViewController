@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'M2DWebViewController', :exclusive => true do
+target 'M2DWebViewController' do
   pod "M2DWebViewController", :path => "../"
-end
-
-target 'Tests', :exclusive => true do
-  pod "M2DWebViewController", :path => "../"
-
-  pod 'Kiwi'
+  
+  target 'Tests' do
+    pod "M2DWebViewController", :path => "../"
+  
+    pod 'Kiwi'
+  end  
 end
