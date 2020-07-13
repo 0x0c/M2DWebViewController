@@ -16,11 +16,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Try this
 
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"]
 
 or this
 
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeUIKit];
+	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"]];
 	__weak typeof(viewController) bviewcontroller = viewController;
 	viewController.actionButtonPressedHandler = ^(NSString *pageTitle, NSURL *url){
 		UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[pageTitle, url] applicationActivities:@[]];
@@ -28,13 +28,8 @@ or this
 		}];
 	};
 
-If you want to use WebKit on iOS8, try this.
-
-	M2DWebViewController *viewController = [[M2DWebViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/0x0c/M2DWebViewController"] type:M2DWebViewTypeWebKit];
-
-
 ## Requirements
-iOS7 or later.
+iOS 12 or later.
 
 ## Installation
 
