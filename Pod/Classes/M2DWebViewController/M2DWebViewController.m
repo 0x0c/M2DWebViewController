@@ -133,7 +133,7 @@ static NSString *const kM2DWebViewControllerGetTitleScript = @"var elements=docu
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-- (id)webView
+- (WKWebView * _Nullable)webView
 {
 	return webView_;
 }
