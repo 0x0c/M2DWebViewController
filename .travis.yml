@@ -4,3 +4,5 @@ language: objective-c
 # before_install: cd Example && pod install && cd -
 script:
 - xctool test -workspace Example/M2DWebViewController.xcworkspace -scheme M2DWebViewController -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+
+# Added comment - 
